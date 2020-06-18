@@ -75,5 +75,7 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
         '''channel_id = self._get_channel_group_id("groups")
         if channel_id:
             return channel_id, "groups"'''
-        channel_id = self._get_channel_group_id("channels")
-        return channel_id, "channels"
+        '''channel_id = self._get_channel_group_id("channels")
+        return channel_id, "channels"'''
+        channel_id = self._get_channel_group_id("conversations")
+        return channel_id, "conversations"
