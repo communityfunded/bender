@@ -1,2 +1,2 @@
-slack
+slackclient
 jinja2
