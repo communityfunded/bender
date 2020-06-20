@@ -3,7 +3,8 @@ from __future__ import print_function
 
 import re
 
-from slack import WebClient
+import slack
+'''from slack import WebClient'''
 from functions import fail_unless
 
 class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-attributes
