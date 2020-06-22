@@ -18,7 +18,7 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
         self.version = kwargs.get("version")
         self.working_dir = kwargs.get("working_dir")
         self.slack_unread = kwargs.get("slack_unread")
-        self.users = self._call_api("users.list", presence=0)
+        self.users = self._call_api("users.list")
         self.mention = kwargs.get("mention")
         if self.mention:
             self.bot_id = self._filter(self.users['members'], "id", "name", self.bot)
