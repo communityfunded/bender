@@ -75,6 +75,6 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
         '''Return ID and type of conversation (conversation|groups)'''
         conversation_id = self._get_conversation_group_id("conversations")
         if conversation_id:
-            return conversation_id, "groups"
+            return conversation_id, "conversations"
         '''conversation_id = self._get_conversation_group_id("conversations")
         return conversation_id, "conversations"'''
