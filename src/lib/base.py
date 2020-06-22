@@ -9,9 +9,9 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
     """Slack Concourse resource implementation"""
 
     def __init__(self, **kwargs):
-        '''self.slack_client = slack.RTMClient(kwargs.get("slack_token"))'''
-        self.slacktoken = kwargs.get("slack_token")
-        self.slack_client = slack.RTMClient(self.slacktoken)
+        self.slack_client = slack.RTMClient(token=kwargs.get("slack_token"))
+        '''self.slacktoken = kwargs.get("slack_token")
+        self.slack_client = slack.RTMClient(self.slacktoken)'''
         self.bot = kwargs.get("bot_name")
         self.channel = kwargs.get("channel")
         self.grammar = kwargs.get("grammar")
