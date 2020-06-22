@@ -10,7 +10,7 @@ ADD src/lib /opt/resource/
 ADD requirements.txt /tmp
 
 RUN chmod +x /opt/resource/* \
-    && pip install -r /tmp/requirements.txt \
+    && pip3 install -r /tmp/requirements.txt \
     && rm /tmp/requirements.txt
 
 # Do some clean up
