@@ -11,7 +11,6 @@ ADD requirements.txt /tmp
 
 RUN chmod +x /opt/resource/* \
     && pip3 install -r /tmp/requirements.txt \
-    && pip3 install slackclient \
     && rm /tmp/requirements.txt
 
 # Do some clean up
