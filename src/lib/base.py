@@ -13,7 +13,7 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
         '''self.slacktoken = kwargs.get("slack_token")
         self.slack_client = slack.RTMClient(self.slacktoken)'''
         self.bot = kwargs.get("bot_name")
-        self.channel = kwargs.get("channel")
+        self.conversation = kwargs.get("conversation")
         self.grammar = kwargs.get("grammar")
         self.version = kwargs.get("version")
         self.working_dir = kwargs.get("working_dir")
@@ -26,8 +26,8 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
         if not self.grammar and not self.mention:
             fail_unless(False, "At least one parameter is required 'grammar', 'mention'.")
 
-        self.channel_id, self.channel_type = self._get_channel_group_info()
-        fail_unless(self.channel_id, "Unable to find channel/group '{}'".format(self.channel))
+        self.conversation_id, self.conversation_type = self._get_conversation_group_info()
+        fail_unless(self.conversation_id, "Unable to find conversation/group '{}'".format(self.conversation))
 
     def _call_api(self, method, **kwargs):
         """Interface to Slack API"""
@@ -67,14 +67,14 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
                 return item.get(return_field, None)
         return None
 
-    def _get_channel_group_id(self, channel_type):
-        items = self._call_api("{}.list".format(channel_type))
-        return self._filter(items[channel_type], "id", "name", self.channel)
+    def _get_conversation_group_id(self, conversation_type):
+        items = self._call_api("{}.list".format(conversation_type))
+        return self._filter(items[conversation_type], "id", "name", self.conversation)
 
-    def _get_channel_group_info(self):
-        '''Return ID and type of channel (channel|groups)'''
-        channel_id = self._get_channel_group_id("conversations")
-        if channel_id:
-            return channel_id, "groups"
-        '''channel_id = self._get_channel_group_id("channels")
-        return channel_id, "channels"'''
+    def _get_conversation_group_info(self):
+        '''Return ID and type of conversation (conversation|groups)'''
+        conversation_id = self._get_conversation_group_id("conversations")
+        if conversation_id:
+            return conversation_id, "groups"
+        '''conversation_id = self._get_conversation_group_id("conversations")
+        return conversation_id, "conversations"'''
