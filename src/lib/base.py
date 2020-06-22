@@ -68,13 +68,13 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
         return None
 
     def _get_channel_group_id(self, channel_type):
-        items = self._call_api("{}.list".format(channel_type), exclude_members=1)
+        items = self._call_api("{}.list".format(channel_type))
         return self._filter(items[channel_type], "id", "name", self.channel)
 
     def _get_channel_group_info(self):
         '''Return ID and type of channel (channel|groups)'''
-        channel_id = self._get_channel_group_id("groups")
+        channel_id = self._get_channel_group_id("conversations")
         if channel_id:
             return channel_id, "groups"
-        channel_id = self._get_channel_group_id("channels")
-        return channel_id, "channels"
+        '''channel_id = self._get_channel_group_id("channels")
+        return channel_id, "channels"'''
