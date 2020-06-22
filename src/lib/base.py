@@ -1,8 +1,6 @@
 ''' Base class and some helper functions'''
 from __future__ import print_function
 
-import re
-
 import slack
 '''from slack import WebClient'''
 from functions import fail_unless
