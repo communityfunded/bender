@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM python:3.8.3
 
 RUN apk add --update \
     python \
