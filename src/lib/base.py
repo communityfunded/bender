@@ -32,9 +32,6 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
 
     def _call_api(self, method, **kwargs):
         """Interface to Slack API"""
-        print("!!!!!!!!!!!!!!!")
-        print(method)
-        print(kwargs)
         api_response = self.slack_client.api_call(method, params=kwargs)
         response_status = api_response.get("ok", False)
         fail_unless(response_status, "Slack API Call failed. method={} response={}".format(method, api_response))

@@ -60,8 +60,6 @@ class Check(Base):
         oldest = self.version.get("id_ts", 0)
         has_more = True
         while has_more and limit >= 0:
-            print("=============")
-            print(self.channel_type)
             messages = self._call_api(self.channel_type + ".history",
                                       channel=self.channel_id,
                                       count=max_api_count,
