@@ -1,9 +1,9 @@
 FROM alpine:3.6
 
-#RUN apk add --update \
-#    python \
-#    python-dev \
-#    py-pip
+RUN apk add --update \
+    python \
+    python-dev \
+    py-pip
 
 ADD src/bin /opt/resource/
 ADD src/lib /opt/resource/
