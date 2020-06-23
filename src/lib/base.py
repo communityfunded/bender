@@ -26,7 +26,7 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
         if not self.grammar and not self.mention:
             fail_unless(False, "At least one parameter is required 'grammar', 'mention'.")
 
-        self.conversation_id, self.conversation_type = self._get_conversation_group_info()
+        self.conversation_id, self.channel_type = self._get_conversation_group_info()
         fail_unless(self.conversation_id, "Unable to find conversation/group '{}'".format(self.conversation))
 
     def _call_api(self, method, **kwargs):
@@ -68,11 +68,11 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
                 return item.get(return_field, None)
         return None
 
-    def _get_conversation_group_id(self, conversation_type):
-        print(conversation_type)
-        items = self._call_api("{}.list".format(conversation_type))
+    def _get_conversation_group_id(self, channel_type):
+        print(channel_type)
+        items = self._call_api("{}.list".format(channel_type))
         print(items)
-        return self._filter(items[conversation_type], "id", "name", self.conversation)
+        return self._filter(items[channel_type], "id", "name", self.conversation)
 
     def _get_conversation_group_info(self):
         '''Return ID and type of conversation (conversation|groups)'''
