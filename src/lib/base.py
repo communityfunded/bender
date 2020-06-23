@@ -63,13 +63,14 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
     @staticmethod
     def _filter(items, return_field, filter_field, filter_value):
         '''Return 'return_field' if filter_value in items filter_field else return none'''
+        print(items)
         for item in items:
             if filter_value == item.get(filter_field, None):
                 return item.get(return_field, None)
         return None
 
     def _get_conversation_group_id(self, channel_type):
-        print(channel_type)
+        print(channel_type) 
         items = self._call_api("{}.list".format(channel_type))
         print(items)
         return self._filter(items[channel_type], "id", "name", self.conversation)
