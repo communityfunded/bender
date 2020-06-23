@@ -32,6 +32,7 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
     def _call_api(self, method, **kwargs):
         """Interface to Slack API"""
         api_response = self.slack_client.api_call(method, **kwargs)
+        print(api_response)
         response_status = api_response.get("ok", False)
         fail_unless(response_status, "Slack API Call failed. method={} response={}".format(method, api_response))
         return api_response
@@ -68,6 +69,7 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
         return None
 
     def _get_conversation_group_id(self, conversation_type):
+        print(conversation_type)
         items = self._call_api("{}.list".format(conversation_type))
         print(items)
         return self._filter(items[conversation_type], "id", "name", self.conversation)
