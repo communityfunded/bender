@@ -2,6 +2,7 @@
 from __future__ import print_function
 
 import slack
+import re
 '''from slack import WebClient'''
 from functions import fail_unless
 
@@ -13,7 +14,7 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
         '''self.slacktoken = kwargs.get("slack_token")
         self.slack_client = slack.RTMClient(self.slacktoken)'''
         self.bot = kwargs.get("bot_name")
-        self.conversation = kwargs.get("conversation")
+        self.conversation = kwargs.get("channel")
         self.grammar = kwargs.get("grammar")
         self.version = kwargs.get("version")
         self.working_dir = kwargs.get("working_dir")
@@ -26,13 +27,15 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
         if not self.grammar and not self.mention:
             fail_unless(False, "At least one parameter is required 'grammar', 'mention'.")
 
-        self.conversation_id, self.channel_type = self._get_conversation_group_info()
-        fail_unless(self.conversation_id, "Unable to find conversation/group '{}'".format(self.conversation))
+        self.channel_id, self.channel_type = self._get_conversation_group_info()
+        fail_unless(self.channel_id, "Unable to find conversation/group '{}'".format(self.conversation))
 
     def _call_api(self, method, **kwargs):
         """Interface to Slack API"""
-        api_response = self.slack_client.api_call(method, **kwargs)
-        print(api_response)
+        print("!!!!!!!!!!!!!!!")
+        print(method)
+        print(kwargs)
+        api_response = self.slack_client.api_call(method, params=kwargs)
         response_status = api_response.get("ok", False)
         fail_unless(response_status, "Slack API Call failed. method={} response={}".format(method, api_response))
         return api_response
@@ -63,16 +66,15 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
     @staticmethod
     def _filter(items, return_field, filter_field, filter_value):
         '''Return 'return_field' if filter_value in items filter_field else return none'''
-        print(items)
         for item in items:
             if filter_value == item.get(filter_field, None):
                 return item.get(return_field, None)
         return None
 
     def _get_conversation_group_id(self, channel_type):
-        print(channel_type) 
-        items = self._call_api("{}.list".format(channel_type))
-        print(items)
+        '''items = self._call_api("{}.list".format(channel_type))'''
+        items = self._call_api("users.conversations")
+        channel_type = "channels"
         return self._filter(items[channel_type], "id", "name", self.conversation)
 
     def _get_conversation_group_info(self):
