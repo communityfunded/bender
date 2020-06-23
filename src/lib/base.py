@@ -69,6 +69,7 @@ class Base(object): # pylint: disable=too-few-public-methods,too-many-instance-a
 
     def _get_conversation_group_id(self, conversation_type):
         items = self._call_api("{}.list".format(conversation_type))
+        print(items)
         return self._filter(items[conversation_type], "id", "name", self.conversation)
 
     def _get_conversation_group_info(self):
