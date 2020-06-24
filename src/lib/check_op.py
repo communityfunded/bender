@@ -25,7 +25,7 @@ class Check(Base):
             if message.get("type") == "message" and self._msg_grammar(message.get("text")):
                 self.checked_msg.append({"id_ts": message["ts"]})
 
-    def check_logic_unread(self, max_api_count=1000, limit=5):
+    def check_logic_unread(self, max_api_count=1000, limit=10):
         """Concourse resource `check` logic using unread mark by slack"""
         unread_counter = True
         latest_ts = 0
@@ -55,7 +55,7 @@ class Check(Base):
             # Sort messages by 'ts' chronologically
             self.checked_msg = sorted(self.checked_msg, key=lambda k: k['id_ts'])
 
-    def check_logic_concourse(self, max_api_count=1000, limit=5):
+    def check_logic_concourse(self, max_api_count=1000, limit=10):
         """Concourse resource `check` logic using version passed by concourse."""
         oldest = self.version.get("id_ts", 0)
         has_more = True
